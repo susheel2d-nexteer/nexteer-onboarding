@@ -1,0 +1,64 @@
+_schema-version: "3.1"
+ID: com.nexteer.onboarding
+version: 1.0.0
+description: Nexteer Onboarding Plan - SAP Build Work Zone Application
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - echo "Build started"
+
+modules:
+  - name: nexteer-onboarding-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: nexteer-onboarding-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: nexteer-onboarding-app
+          artifacts:
+            - "./*"
+          target-path: resources/nexteer-onboarding-app
+
+  - name: nexteer-onboarding-app
+    type: html5
+    path: webapp
+    build-parameters:
+      builder: custom
+      commands:
+        - echo "HTML5 module build complete"
+      supported-platforms: []
+
+resources:
+  - name: nexteer-onboarding-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: xs-security.json
+
+  - name: nexteer-onboarding-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+
+  - name: nexteer-onboarding-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: nexteer-onboarding-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime

@@ -1,0 +1,20 @@
+{
+  "xsappname": "nexteer-onboarding-xsuaa",
+  "tenant-mode": "dedicated",
+  "description": "Nexteer Onboarding Plan - Security Configuration",
+  "scopes": [
+    {"name": "$XSAPPNAME.Manager", "description": "Manager Role"},
+    {"name": "$XSAPPNAME.Employee", "description": "Employee Role"},
+    {"name": "$XSAPPNAME.Buddy", "description": "Buddy Role"}
+  ],
+  "role-templates": [
+    {"name": "OnboardingManager", "description": "Manager role", "scope-references": ["$XSAPPNAME.Manager"]},
+    {"name": "OnboardingEmployee", "description": "Employee role", "scope-references": ["$XSAPPNAME.Employee"]},
+    {"name": "OnboardingBuddy", "description": "Buddy role", "scope-references": ["$XSAPPNAME.Buddy"]}
+  ],
+  "role-collections": [
+    {"name": "Nexteer Onboarding Manager", "description": "Manager access", "role-template-references": ["$XSAPPNAME.OnboardingManager"]},
+    {"name": "Nexteer Onboarding Employee", "description": "Employee access", "role-template-references": ["$XSAPPNAME.OnboardingEmployee"]},
+    {"name": "Nexteer Onboarding Buddy", "description": "Buddy access", "role-template-references": ["$XSAPPNAME.OnboardingBuddy"]}
+  ]
+}

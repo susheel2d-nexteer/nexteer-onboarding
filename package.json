@@ -1,0 +1,7 @@
+{
+  "name": "nexteer-onboarding",
+  "version": "1.0.0",
+  "description": "Nexteer Onboarding Plan - SAP Build Work Zone",
+  "scripts": {"build": "mbt build"},
+  "devDependencies": {"mbt": "*"}
+}
